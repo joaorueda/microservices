@@ -25,9 +25,6 @@ public class WorkerResource {
 	private static Logger logger = LoggerFactory.getLogger(WorkerResource.class);
 
 	
-	@Value("${test.config}")
-	private String testeConfig;
-	
 	@Autowired
 	private Environment env;
 	
@@ -40,25 +37,20 @@ public class WorkerResource {
 		return ResponseEntity.ok(list);
 	}
 	
-	@GetMapping(value = "/configs")
-	public ResponseEntity<Void> getConfigs(){
-		logger.info("CONFIG = "+ testeConfig);
-		return ResponseEntity.noContent().build();
-	}
-	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Worker> findById(@PathVariable Long id){
 		
 //		int x = 1;
 //		if (x == 1)
 //			throw new RuntimeException("Erro");
-		
-		try {
-			Thread.sleep(3000L);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
+//	
+//		TESTE DE TIMEOUT
+//		try {
+//			Thread.sleep(3000L);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+//		
 		logger.info("PORT = "+ env.getProperty("local.server.port"));
 		
 		Worker worker = repository.findById(id).get();
